@@ -1,4 +1,4 @@
-module github.com/Kurtz1993/go-contacts
+module go-contacts
 
 go 1.17
 

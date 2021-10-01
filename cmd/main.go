@@ -1,9 +1,12 @@
 package main
 
-import "os"
+import (
+	"go-contacts/pkg"
+	"os"
+)
 
 func main() {
-	a := App{}
+	a := pkg.Application{}
 	a.Initialize(
 		os.Getenv("APP_DB_USERNAME"),
 		os.Getenv("APP_DB_PASSWORD"),

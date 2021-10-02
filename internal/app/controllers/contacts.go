@@ -1,4 +1,4 @@
-package contacts
+package controllers
 
 import (
 	"errors"
@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/Kurtz1993/go-contacts/internal/pkg/contacts"
 	"github.com/Kurtz1993/go-contacts/internal/pkg/datastore"
 	"github.com/gin-gonic/gin"
 )
@@ -40,13 +41,19 @@ func (c *ContactsController) InitRoutes() {
 }
 
 func (c *ContactsController) GetContacts(ctx *gin.Context) {
-	contacts, err := c.dao.ListContacts()
+	items, err := c.dao.ListContacts()
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	ctx.JSON(http.StatusOK, contacts)
+	var result []*contacts.ContactVM
+
+	for _, item := range items {
+		result = append(result, contacts.ToContactVM(item))
+	}
+
+	ctx.JSON(http.StatusOK, result)
 }
 
 func (c *ContactsController) GetContactById(ctx *gin.Context) {

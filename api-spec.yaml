@@ -1,0 +1,172 @@
+swagger: "2.0"
+info:
+  description: "This is a basic contact book API"
+  version: "1.0.0"
+  title: "Contacts API"
+host: "localhost:8080"
+tags:
+  - name: "contacts"
+    description: "Contacts API"
+schemes:
+  - "http"
+parameters:
+  contactId:
+    name: "id"
+    in: "path"
+    description: "The contact ID. Must be a valid integer."
+    type: "number"
+    required: true
+paths:
+  /contacts:
+    get:
+      tags:
+        - "contacts"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "Requested contacts list"
+          schema:
+            $ref: "#/definitions/ContactsList"
+        500:
+          description: "Something went wrong"
+          schema:
+            $ref: "#/definitions/GenericError"
+    post:
+      tags:
+        - "contacts"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/CreateContactRequest"
+      responses:
+        201:
+          description: "Created contact"
+          schema:
+            $ref: "#/definitions/Contact"
+        400:
+          description: "Something is not right with the payload"
+          schema:
+            $ref: "#/definitions/GenericError"
+        500:
+          description: "Something went wrong"
+          schema:
+            $ref: "#/definitions/GenericError"
+    put:
+      tags:
+        - "contacts"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/Contact"
+      responses:
+        200:
+          description: "Updated contact"
+          schema:
+            $ref: "#/definitions/Contact"
+        400:
+          description: "Something is not right with the payload"
+          schema:
+            $ref: "#/definitions/GenericError"
+        404:
+          description: "Contact to update is not found"
+          schema:
+            $ref: "#/definitions/GenericError"
+        500:
+          description: "Something went wrong"
+          schema:
+            $ref: "#/definitions/GenericError"
+  /contacts/{id}:
+    get:
+      tags:
+        - "contacts"
+      parameters:
+        - $ref: "#/parameters/contactId"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "Requested contact object"
+          schema:
+            $ref: "#/definitions/Contact"
+        400:
+          description: "The id is not an integer"
+          schema:
+            $ref: "#/definitions/GenericError"
+        404:
+          description: "The contact is not found"
+          schema:
+            $ref: "#/definitions/GenericError"
+    delete:
+      tags:
+        - "contacts"
+      parameters:
+        - $ref: "#/parameters/contactId"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "Everything went OK"
+        400:
+          description: "The id is not an integer"
+          schema:
+            $ref: "#/definitions/GenericError"
+        404:
+          description: "The contact is not found"
+          schema:
+            $ref: "#/definitions/GenericError"
+definitions:
+  GenericError:
+    type: object
+    properties:
+      error:
+        type: string
+  Contact:
+    type: object
+    properties:
+      avatarUrl:
+        type: string
+        description: "A Gravatar URL"
+      email:
+        type: string
+        description: "The contact's email"
+      firstName:
+        type: string
+        description: "Contact's first name"
+      id:
+        type: string
+        description: "Contact's ID on the database"
+      lastName:
+        type: string
+        description: "Contact's last name"
+      phoneNumber:
+        type: string
+        description: "Contact's phone number as a 10-digit string"
+  CreateContactRequest:
+    type: object
+    properties:
+      email:
+        type: string
+        description: "The contact's email"
+      firstName:
+        type: string
+        description: "Contact's first name"
+      lastName:
+        type: string
+        description: "Contact's last name"
+      phoneNumber:
+        type: string
+        description: "Contact's phone number as a 10-digit string"
+  ContactsList:
+    type: array
+    description: "A list of Contact objects"
+    items:
+      $ref: "#/definitions/Contact"

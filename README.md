@@ -25,4 +25,4 @@ npm start
 ```
 
 ## API Spec
-This project contains an api spec file that can be seen in the [Swagger Editor](https://editor.swagger.io).
+This project contains an `api-spec.yaml` file, which is a Swagger specification file that can be seen in the [Swagger Editor](https://editor.swagger.io).

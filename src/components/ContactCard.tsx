@@ -1,8 +1,8 @@
-import { ReactComponent as PhoneIcon } from "@icons/call-outline.svg";
-import { ReactComponent as MailIcon } from "@icons/mail-outline.svg";
-import { ReactComponent as PencilIcon } from "@icons/pencil-outline.svg";
-import { Contact } from "@models/contact.model";
-import DetailItem from "./DetailItem";
+import { ReactComponent as PhoneIcon } from '@icons/call-outline.svg';
+import { ReactComponent as MailIcon } from '@icons/mail-outline.svg';
+import { ReactComponent as PencilIcon } from '@icons/pencil-outline.svg';
+import { Contact } from '@models/contact.model';
+import DetailItem from './DetailItem';
 
 type ContactCardProps = {
   contact: Contact;
@@ -18,7 +18,7 @@ export default function ContactCard({ contact }: ContactCardProps) {
       </div>
       <img
         className="w-32 h-32 rounded-full mx-auto"
-        src={contact.avatarUrl}
+        src={`${contact.avatarUrl}?s=256`}
         alt=""
         width="384"
         height="512"

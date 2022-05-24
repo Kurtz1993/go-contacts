@@ -1,13 +1,13 @@
 package datastore
 
 const (
-	sqlEnsureTableExists = `CREATE TABLE IF NOT EXISTS contacts
+	sqlEnsureTableExists = `CREATE TABLE IF NOT EXISTS contacts(
 	id SERIAL,
 	firstName TEXT NOT NULL,
 	lastName  TEXT,
 	phoneNumber TEXT,
 	email TEXT,
-	CONSTRAINT contacts_pkey  PRIMARY KEY(id)
+	CONSTRAINT contacts_pkey  PRIMARY KEY(id))
 	`
 	sqlListContacts  = `SELECT id, firstName, lastName, phoneNumber, email FROM contacts`
 	sqlGetContact    = `SELECT id, firstName, lastName, phoneNumber, email FROM contacts WHERE id=$1`

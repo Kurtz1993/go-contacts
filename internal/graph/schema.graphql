@@ -4,6 +4,7 @@
 
 type Contact {
   id: Int!
+  avatarUrl: String
   firstName: String!
   lastName: String!
   phoneNumber: String

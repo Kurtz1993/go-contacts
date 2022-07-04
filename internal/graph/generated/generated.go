@@ -45,6 +45,7 @@ type DirectiveRoot struct {
 
 type ComplexityRoot struct {
 	Contact struct {
+		AvatarURL   func(childComplexity int) int
 		Email       func(childComplexity int) int
 		FirstName   func(childComplexity int) int
 		ID          func(childComplexity int) int
@@ -82,6 +83,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 	ec := executionContext{nil, e}
 	_ = ec
 	switch typeName + "." + field {
+
+	case "Contact.avatarUrl":
+		if e.complexity.Contact.AvatarURL == nil {
+			break
+		}
+
+		return e.complexity.Contact.AvatarURL(childComplexity), true
 
 	case "Contact.email":
 		if e.complexity.Contact.Email == nil {
@@ -212,6 +220,7 @@ var sources = []*ast.Source{
 
 type Contact {
   id: Int!
+  avatarUrl: String
   firstName: String!
   lastName: String!
   phoneNumber: String
@@ -347,6 +356,47 @@ func (ec *executionContext) fieldContext_Contact_id(ctx context.Context, field g
 		IsResolver: false,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			return nil, errors.New("field of type Int does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Contact_avatarUrl(ctx context.Context, field graphql.CollectedField, obj *model.Contact) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Contact_avatarUrl(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.AvatarURL, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Contact_avatarUrl(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Contact",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
 		},
 	}
 	return fc, nil
@@ -563,6 +613,8 @@ func (ec *executionContext) fieldContext_Mutation_createContact(ctx context.Cont
 			switch field.Name {
 			case "id":
 				return ec.fieldContext_Contact_id(ctx, field)
+			case "avatarUrl":
+				return ec.fieldContext_Contact_avatarUrl(ctx, field)
 			case "firstName":
 				return ec.fieldContext_Contact_firstName(ctx, field)
 			case "lastName":
@@ -630,6 +682,8 @@ func (ec *executionContext) fieldContext_Query_contacts(ctx context.Context, fie
 			switch field.Name {
 			case "id":
 				return ec.fieldContext_Contact_id(ctx, field)
+			case "avatarUrl":
+				return ec.fieldContext_Contact_avatarUrl(ctx, field)
 			case "firstName":
 				return ec.fieldContext_Contact_firstName(ctx, field)
 			case "lastName":
@@ -2624,6 +2678,10 @@ func (ec *executionContext) _Contact(ctx context.Context, sel ast.SelectionSet, 
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
+		case "avatarUrl":
+
+			out.Values[i] = ec._Contact_avatarUrl(ctx, field, obj)
+
 		case "firstName":
 
 			out.Values[i] = ec._Contact_firstName(ctx, field, obj)

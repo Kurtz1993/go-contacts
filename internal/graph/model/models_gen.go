@@ -4,6 +4,7 @@ package model
 
 type Contact struct {
 	ID          int     `json:"id"`
+	AvatarURL   *string `json:"avatarUrl"`
 	FirstName   string  `json:"firstName"`
 	LastName    string  `json:"lastName"`
 	PhoneNumber *string `json:"phoneNumber"`

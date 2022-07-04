@@ -43,6 +43,13 @@ export type Query = {
   contacts: Array<Contact>;
 };
 
+export type CreateNewContactMutationVariables = Exact<{
+  contact: NewContact;
+}>;
+
+
+export type CreateNewContactMutation = { __typename?: 'Mutation', createContact: { __typename?: 'Contact', firstName: string, lastName: string, phoneNumber?: string | null, email?: string | null } };
+
 export type ContactsListQueryVariables = Exact<{ [key: string]: never; }>;
 
 

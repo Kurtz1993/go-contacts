@@ -3,7 +3,7 @@
 package model
 
 type Contact struct {
-	ID          string  `json:"id"`
+	ID          int     `json:"id"`
 	FirstName   string  `json:"firstName"`
 	LastName    string  `json:"lastName"`
 	PhoneNumber *string `json:"phoneNumber"`

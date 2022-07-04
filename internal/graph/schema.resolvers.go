@@ -5,7 +5,6 @@ package graph
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/Kurtz1993/go-contacts/internal/graph/generated"
 	"github.com/Kurtz1993/go-contacts/internal/graph/model"
@@ -13,12 +12,33 @@ import (
 
 // CreateContact is the resolver for the createContact field.
 func (r *mutationResolver) CreateContact(ctx context.Context, input model.NewContact) (*model.Contact, error) {
-	panic(fmt.Errorf("not implemented"))
+	return &model.Contact{
+		FirstName:   input.FirstName,
+		LastName:    input.LastName,
+		PhoneNumber: input.PhoneNumber,
+		Email:       input.Email,
+	}, nil
 }
 
 // Contacts is the resolver for the contacts field.
 func (r *queryResolver) Contacts(ctx context.Context) ([]*model.Contact, error) {
-	panic(fmt.Errorf("not implemented"))
+	data, err := r.contacts.ListContacts()
+	if err != nil {
+		return nil, err
+	}
+
+	var result []*model.Contact
+	for _, item := range data {
+		result = append(result, &model.Contact{
+			ID:          item.ID,
+			FirstName:   item.FirstName,
+			LastName:    item.LastName,
+			PhoneNumber: &item.PhoneNumber,
+			Email:       &item.Email,
+		})
+	}
+
+	return result, nil
 }
 
 // Mutation returns generated.MutationResolver implementation.

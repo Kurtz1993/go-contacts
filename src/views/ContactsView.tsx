@@ -1,7 +1,7 @@
-import ContactCard from '@components/ContactCard';
-import { AsyncData, AsyncStatus } from '@models/async-data.model';
-import { Contact } from '@models/contact.model';
-import { getContacts } from '@services/contactsApi';
+import ContactCard from '@app/components/ContactCard';
+import { AsyncData, AsyncStatus } from '@app/models/async-data.model';
+import { Contact } from '@app/models/contact.model';
+import { getContacts } from '@app/services/contactsApi';
 import { useEffect, useState } from 'react';
 
 export default function ContactsView() {

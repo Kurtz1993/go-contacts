@@ -1,7 +1,7 @@
-import { ReactComponent as PhoneIcon } from '@icons/call-outline.svg';
-import { ReactComponent as MailIcon } from '@icons/mail-outline.svg';
-import { ReactComponent as PencilIcon } from '@icons/pencil-outline.svg';
-import { Contact } from '@models/contact.model';
+import { ReactComponent as PhoneIcon } from '@app/icons/call-outline.svg';
+import { ReactComponent as MailIcon } from '@app/icons/mail-outline.svg';
+import { ReactComponent as PencilIcon } from '@app/icons/pencil-outline.svg';
+import { Contact } from '@app/models/contact.model';
 import DetailItem from './DetailItem';
 
 type ContactCardProps = {

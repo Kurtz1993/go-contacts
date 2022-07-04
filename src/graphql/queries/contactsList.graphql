@@ -1,6 +1,10 @@
 query contactsList {
   contacts {
+    id
+    avatarUrl
     firstName
     lastName
+    phoneNumber
+    email
   }
 }

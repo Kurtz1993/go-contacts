@@ -14,9 +14,10 @@ export type Scalars = {
 
 export type Contact = {
   __typename?: 'Contact';
+  avatarUrl?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   firstName: Scalars['String'];
-  id: Scalars['ID'];
+  id: Scalars['Int'];
   lastName: Scalars['String'];
   phoneNumber?: Maybe<Scalars['String']>;
 };
@@ -53,4 +54,4 @@ export type CreateNewContactMutation = { __typename?: 'Mutation', createContact:
 export type ContactsListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ContactsListQuery = { __typename?: 'Query', contacts: Array<{ __typename?: 'Contact', firstName: string, lastName: string }> };
+export type ContactsListQuery = { __typename?: 'Query', contacts: Array<{ __typename?: 'Contact', id: number, avatarUrl?: string | null, firstName: string, lastName: string, phoneNumber?: string | null, email?: string | null }> };

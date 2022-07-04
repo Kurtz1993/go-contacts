@@ -3,7 +3,7 @@
 # https://gqlgen.com/getting-started/
 
 type Contact {
-  id: ID!
+  id: Int!
   firstName: String!
   lastName: String!
   phoneNumber: String

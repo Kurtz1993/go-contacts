@@ -1,13 +1,17 @@
-# Where to get schema data
-schema:
-  - http://localhost:8080
-documents:
-  - src/**/*.graphql
+overwrite: true
+schema: 'http://localhost:8080/graphql'
+documents: 'src/**/*.graphql'
 generates:
-  ./src/services/gql.service.ts:
+  src/gen/graphql.ts:
     plugins:
-      - typescript
-      - typescript-operations
+      - 'typescript'
+      - 'typescript-operations'
+  src:
+    preset: near-operation-file
+    presetConfig:
+      baseTypesPath: 'gen/graphql.ts'
+    plugins:
+      - 'typescript-operations'
       - typescript-rtk-query:
-          importBaseApiFrom: 'src/api/baseApi'
+          importBaseApiFrom: '@app/api/baseApi'
           exportHooks: true

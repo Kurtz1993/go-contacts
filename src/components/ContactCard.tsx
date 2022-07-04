@@ -1,7 +1,7 @@
+import { Contact } from '@app/gen/graphql';
 import { ReactComponent as PhoneIcon } from '@app/icons/call-outline.svg';
 import { ReactComponent as MailIcon } from '@app/icons/mail-outline.svg';
 import { ReactComponent as PencilIcon } from '@app/icons/pencil-outline.svg';
-import { Contact } from '@app/models/contact.model';
 import DetailItem from './DetailItem';
 
 type ContactCardProps = {
@@ -10,7 +10,7 @@ type ContactCardProps = {
 
 export default function ContactCard({ contact }: ContactCardProps) {
   return (
-    <figure className="bg-gray-100 rounded-xl p-5 mx-4 my-5 shadow-md hover:shadow-xl hover:scale-50 transition duration-300 flex flex-col">
+    <figure className="bg-gray-100 rounded-xl p-5 mx-4 my-5 shadow-md hover:shadow-xl hover:scale-105 transition duration-300 flex flex-col">
       <div className="text-right">
         <button type="button">
           <PencilIcon width="20" />

@@ -1,6 +1,6 @@
 # Where to get schema data
 schema:
-  -
+  - http://localhost:8080
 documents:
   - src/**/*.graphql
 generates:
@@ -9,5 +9,5 @@ generates:
       - typescript
       - typescript-operations
       - typescript-rtk-query:
-        importBaseApiFrom: 'src/api/baseApi'
-        exportHooks: true
+          importBaseApiFrom: 'src/api/baseApi'
+          exportHooks: true

@@ -18,9 +18,9 @@ type Server struct {
 func (s *Server) Initialize() {
 	datastore.EnsureTableExists()
 	r := gin.Default()
+	r.Use(cors.Default())
 	r.POST("/graphql", graphqlHandler())
 	r.GET("/", playgroundHandler())
-	r.Use(cors.Default())
 	s.Engine = r
 	s.initRoutes()
 }

@@ -19,8 +19,6 @@ func (s *Server) Initialize() {
 	datastore.EnsureTableExists()
 	r := gin.Default()
 	r.Use(cors.Default())
-	r.POST("/graphql", graphqlHandler())
-	r.GET("/", playgroundHandler())
 	s.Engine = r
 	s.initRoutes()
 }
@@ -33,17 +31,15 @@ func (s *Server) initRoutes() {
 	dao := &datastore.ContactsDAO{}
 	ctrl := controllers.NewContactsController(dao, s.Engine.Group("/contacts"))
 	ctrl.InitRoutes()
-}
 
-// Defining the Graphql handler
-func graphqlHandler() gin.HandlerFunc {
-	// NewExecutableSchema and Config are in the generated.go file
-	// Resolver is in the resolver.go file
 	h := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}}))
 
-	return func(c *gin.Context) {
+	graphqlHandler := func(c *gin.Context) {
 		h.ServeHTTP(c.Writer, c.Request)
 	}
+
+	s.Engine.POST("/graphql", graphqlHandler)
+	s.Engine.GET("/", playgroundHandler())
 }
 
 // Defining the Playground handler

@@ -1,0 +1,13 @@
+# Where to get schema data
+schema:
+  -
+documents:
+  - src/**/*.graphql
+generates:
+  ./src/services/gql.service.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-rtk-query:
+        importBaseApiFrom: 'src/api/baseApi'
+        exportHooks: true

@@ -12,6 +12,11 @@ generates:
       baseTypesPath: 'gen/graphql.ts'
     plugins:
       - 'typescript-operations'
-      - typescript-rtk-query:
-          importBaseApiFrom: '@app/api/baseApi'
-          exportHooks: true
+      - typescript-react-query
+    config:
+      fetcher:
+        endpoint: 'http://localhost:8080/graphql'
+        fetchParams:
+          headers:
+            Accept: 'application/json'
+            Content-Type: 'application/json'

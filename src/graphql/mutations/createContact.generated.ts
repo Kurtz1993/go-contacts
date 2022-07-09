@@ -1,6 +1,26 @@
 import * as Types from '../../gen/graphql';
 
-import { api } from '@app/api/baseApi';
+import { useMutation, UseMutationOptions } from 'react-query';
+
+function fetcher<TData, TVariables>(query: string, variables?: TVariables) {
+  return async (): Promise<TData> => {
+    const res = await fetch("http://localhost:8080/graphql", {
+    method: "POST",
+    ...({"headers":{"Accept":"application/json","Content-Type":"application/json"}}),
+      body: JSON.stringify({ query, variables }),
+    });
+
+    const json = await res.json();
+
+    if (json.errors) {
+      const { message } = json.errors[0];
+
+      throw new Error(message);
+    }
+
+    return json.data;
+  }
+}
 export type CreateNewContactMutationVariables = Types.Exact<{
   contact: Types.NewContact;
 }>;
@@ -19,15 +39,12 @@ export const CreateNewContactDocument = `
   }
 }
     `;
-
-const injectedRtkApi = api.injectEndpoints({
-  endpoints: (build) => ({
-    createNewContact: build.mutation<CreateNewContactMutation, CreateNewContactMutationVariables>({
-      query: (variables) => ({ document: CreateNewContactDocument, variables })
-    }),
-  }),
-});
-
-export { injectedRtkApi as api };
-export const { useCreateNewContactMutation } = injectedRtkApi;
-
+export const useCreateNewContactMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<CreateNewContactMutation, TError, CreateNewContactMutationVariables, TContext>) =>
+    useMutation<CreateNewContactMutation, TError, CreateNewContactMutationVariables, TContext>(
+      ['createNewContact'],
+      (variables?: CreateNewContactMutationVariables) => fetcher<CreateNewContactMutation, CreateNewContactMutationVariables>(CreateNewContactDocument, variables)(),
+      options
+    );

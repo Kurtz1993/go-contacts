@@ -1,6 +1,26 @@
 import * as Types from '../../gen/graphql';
 
-import { api } from '@app/api/baseApi';
+import { useQuery, UseQueryOptions } from 'react-query';
+
+function fetcher<TData, TVariables>(query: string, variables?: TVariables) {
+  return async (): Promise<TData> => {
+    const res = await fetch("http://localhost:8080/graphql", {
+    method: "POST",
+    ...({"headers":{"Accept":"application/json","Content-Type":"application/json"}}),
+      body: JSON.stringify({ query, variables }),
+    });
+
+    const json = await res.json();
+
+    if (json.errors) {
+      const { message } = json.errors[0];
+
+      throw new Error(message);
+    }
+
+    return json.data;
+  }
+}
 export type ContactsListQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
@@ -19,15 +39,15 @@ export const ContactsListDocument = `
   }
 }
     `;
-
-const injectedRtkApi = api.injectEndpoints({
-  endpoints: (build) => ({
-    contactsList: build.query<ContactsListQuery, ContactsListQueryVariables | void>({
-      query: (variables) => ({ document: ContactsListDocument, variables })
-    }),
-  }),
-});
-
-export { injectedRtkApi as api };
-export const { useContactsListQuery, useLazyContactsListQuery } = injectedRtkApi;
-
+export const useContactsListQuery = <
+      TData = ContactsListQuery,
+      TError = unknown
+    >(
+      variables?: ContactsListQueryVariables,
+      options?: UseQueryOptions<ContactsListQuery, TError, TData>
+    ) =>
+    useQuery<ContactsListQuery, TError, TData>(
+      variables === undefined ? ['contactsList'] : ['contactsList', variables],
+      fetcher<ContactsListQuery, ContactsListQueryVariables>(ContactsListDocument, variables),
+      options
+    );

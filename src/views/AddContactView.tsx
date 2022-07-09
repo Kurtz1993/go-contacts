@@ -6,12 +6,12 @@ import { object, string } from 'yup';
 const validationSchema = object({
   firstName: string().required(),
   lastName: string().required(),
-  phoneNumber: string().matches(/\d{19}/),
+  phoneNumber: string().matches(/\d{10}/),
   email: string().email(),
 });
 
 export default function AddContactView() {
-  const [createContact] = useCreateNewContactMutation();
+  const { mutate: createContact } = useCreateNewContactMutation();
   const formik = useFormik({
     initialValues: {
       firstName: '',

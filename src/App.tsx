@@ -1,12 +1,14 @@
-import { Provider } from 'react-redux';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import store from './redux/store';
 import AddContactView from './views/AddContactView';
 import ContactsView from './views/ContactsView';
 
+const queryClient = new QueryClient();
+
 function App() {
   return (
-    <Provider store={store}>
+    <QueryClientProvider client={queryClient}>
       <main className="flex flex-col h-screen bg-gray-200 p-6">
         <Router>
           <Routes>
@@ -15,7 +17,8 @@ function App() {
           </Routes>
         </Router>
       </main>
-    </Provider>
+      <ReactQueryDevtools />
+    </QueryClientProvider>
   );
 }
 

@@ -28,7 +28,7 @@
     "test": "vitest run",
     "test:watch": "vitest watch",
     "test:coverage": "vitest run --coverage",
-    "codegen": "graphql-codegen --config codegen.yml"
+    "codegen": "graphql-codegen --config ui-graphql-codegen.yml"
   },
   "eslintConfig": {
     "extends": [

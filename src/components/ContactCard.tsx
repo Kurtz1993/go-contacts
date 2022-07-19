@@ -1,4 +1,4 @@
-import { Contact } from '@app/gen/graphql';
+import { Contact } from '@app/graphql/gen/types';
 import { ReactComponent as PhoneIcon } from '@app/icons/call-outline.svg';
 import { ReactComponent as MailIcon } from '@app/icons/mail-outline.svg';
 import { ReactComponent as PencilIcon } from '@app/icons/pencil-outline.svg';

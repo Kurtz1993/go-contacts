@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/Kurtz1993/go-contacts/internal/pkg/errorhandling"
+	"github.com/Kurtz1993/go-contacts/server/pkg/errorhandling"
 	_ "github.com/lib/pq"
 )
 

@@ -1,10 +1,10 @@
-import * as Types from '../../gen/graphql';
+import * as Types from '../gen/types';
 
 import { useMutation, UseMutationOptions } from 'react-query';
 
 function fetcher<TData, TVariables>(query: string, variables?: TVariables) {
   return async (): Promise<TData> => {
-    const res = await fetch("http://localhost:8080/graphql", {
+    const res = await fetch("http://localhost:3000/api/graphql", {
     method: "POST",
     ...({"headers":{"Accept":"application/json","Content-Type":"application/json"}}),
       body: JSON.stringify({ query, variables }),

@@ -13,7 +13,7 @@ import (
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
-	"github.com/Kurtz1993/go-contacts/internal/graph/model"
+	"github.com/Kurtz1993/go-contacts/server/pkg/gql/model"
 	gqlparser "github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
 )
@@ -214,7 +214,7 @@ func (ec *executionContext) introspectType(name string) (*introspection.Type, er
 }
 
 var sources = []*ast.Source{
-	{Name: "../../../schema.graphql", Input: `# GraphQL schema example
+	{Name: "../../../../schema.graphql", Input: `# GraphQL schema example
 #
 # https://gqlgen.com/getting-started/
 
@@ -255,7 +255,7 @@ func (ec *executionContext) field_Mutation_createContact_args(ctx context.Contex
 	var arg0 model.NewContact
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNNewContact2githubᚗcomᚋKurtz1993ᚋgoᚑcontactsᚋinternalᚋgraphᚋmodelᚐNewContact(ctx, tmp)
+		arg0, err = ec.unmarshalNNewContact2githubᚗcomᚋKurtz1993ᚋgoᚑcontactsᚋserverᚋpkgᚋgqlᚋmodelᚐNewContact(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -600,7 +600,7 @@ func (ec *executionContext) _Mutation_createContact(ctx context.Context, field g
 	}
 	res := resTmp.(*model.Contact)
 	fc.Result = res
-	return ec.marshalNContact2ᚖgithubᚗcomᚋKurtz1993ᚋgoᚑcontactsᚋinternalᚋgraphᚋmodelᚐContact(ctx, field.Selections, res)
+	return ec.marshalNContact2ᚖgithubᚗcomᚋKurtz1993ᚋgoᚑcontactsᚋserverᚋpkgᚋgqlᚋmodelᚐContact(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_createContact(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -669,7 +669,7 @@ func (ec *executionContext) _Query_contacts(ctx context.Context, field graphql.C
 	}
 	res := resTmp.([]*model.Contact)
 	fc.Result = res
-	return ec.marshalNContact2ᚕᚖgithubᚗcomᚋKurtz1993ᚋgoᚑcontactsᚋinternalᚋgraphᚋmodelᚐContactᚄ(ctx, field.Selections, res)
+	return ec.marshalNContact2ᚕᚖgithubᚗcomᚋKurtz1993ᚋgoᚑcontactsᚋserverᚋpkgᚋgqlᚋmodelᚐContactᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_contacts(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -3152,11 +3152,11 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 	return res
 }
 
-func (ec *executionContext) marshalNContact2githubᚗcomᚋKurtz1993ᚋgoᚑcontactsᚋinternalᚋgraphᚋmodelᚐContact(ctx context.Context, sel ast.SelectionSet, v model.Contact) graphql.Marshaler {
+func (ec *executionContext) marshalNContact2githubᚗcomᚋKurtz1993ᚋgoᚑcontactsᚋserverᚋpkgᚋgqlᚋmodelᚐContact(ctx context.Context, sel ast.SelectionSet, v model.Contact) graphql.Marshaler {
 	return ec._Contact(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNContact2ᚕᚖgithubᚗcomᚋKurtz1993ᚋgoᚑcontactsᚋinternalᚋgraphᚋmodelᚐContactᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Contact) graphql.Marshaler {
+func (ec *executionContext) marshalNContact2ᚕᚖgithubᚗcomᚋKurtz1993ᚋgoᚑcontactsᚋserverᚋpkgᚋgqlᚋmodelᚐContactᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Contact) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -3180,7 +3180,7 @@ func (ec *executionContext) marshalNContact2ᚕᚖgithubᚗcomᚋKurtz1993ᚋgo�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNContact2ᚖgithubᚗcomᚋKurtz1993ᚋgoᚑcontactsᚋinternalᚋgraphᚋmodelᚐContact(ctx, sel, v[i])
+			ret[i] = ec.marshalNContact2ᚖgithubᚗcomᚋKurtz1993ᚋgoᚑcontactsᚋserverᚋpkgᚋgqlᚋmodelᚐContact(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -3200,7 +3200,7 @@ func (ec *executionContext) marshalNContact2ᚕᚖgithubᚗcomᚋKurtz1993ᚋgo�
 	return ret
 }
 
-func (ec *executionContext) marshalNContact2ᚖgithubᚗcomᚋKurtz1993ᚋgoᚑcontactsᚋinternalᚋgraphᚋmodelᚐContact(ctx context.Context, sel ast.SelectionSet, v *model.Contact) graphql.Marshaler {
+func (ec *executionContext) marshalNContact2ᚖgithubᚗcomᚋKurtz1993ᚋgoᚑcontactsᚋserverᚋpkgᚋgqlᚋmodelᚐContact(ctx context.Context, sel ast.SelectionSet, v *model.Contact) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -3225,7 +3225,7 @@ func (ec *executionContext) marshalNInt2int(ctx context.Context, sel ast.Selecti
 	return res
 }
 
-func (ec *executionContext) unmarshalNNewContact2githubᚗcomᚋKurtz1993ᚋgoᚑcontactsᚋinternalᚋgraphᚋmodelᚐNewContact(ctx context.Context, v interface{}) (model.NewContact, error) {
+func (ec *executionContext) unmarshalNNewContact2githubᚗcomᚋKurtz1993ᚋgoᚑcontactsᚋserverᚋpkgᚋgqlᚋmodelᚐNewContact(ctx context.Context, v interface{}) (model.NewContact, error) {
 	res, err := ec.unmarshalInputNewContact(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }

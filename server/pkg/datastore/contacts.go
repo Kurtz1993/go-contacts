@@ -17,11 +17,11 @@ const (
 )
 
 type ContactEntity struct {
-	ID          int    `json:"id"`
-	FirstName   string `json:"firstName"`
-	LastName    string `json:"lastName,omitempty"`
-	PhoneNumber string `json:"phoneNumber,omitempty"`
-	Email       string `json:"email,omitempty"`
+	ID          int     `json:"id"`
+	FirstName   string  `json:"firstName"`
+	LastName    string  `json:"lastName,omitempty"`
+	PhoneNumber *string `json:"phoneNumber,omitempty"`
+	Email       *string `json:"email,omitempty"`
 }
 
 type ContactsDAO struct{}

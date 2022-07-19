@@ -1,5 +1,5 @@
 import ContactCard from '@app/components/ContactCard';
-import { useContactsListQuery } from '@app/graphql/queries/contactsList.generated';
+import { useContactsListQuery } from '@app/graphql/queries/contacts.generated';
 import { Link } from 'react-router-dom';
 
 export default function ContactsView() {

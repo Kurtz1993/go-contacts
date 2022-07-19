@@ -28,6 +28,13 @@ export type CreateNewContactMutationVariables = Types.Exact<{
 
 export type CreateNewContactMutation = { __typename?: 'Mutation', createContact: { __typename?: 'Contact', firstName: string, lastName: string, phoneNumber?: string | null, email?: string | null } };
 
+export type DeleteContactMutationVariables = Types.Exact<{
+  contactId: Types.Scalars['Int'];
+}>;
+
+
+export type DeleteContactMutation = { __typename?: 'Mutation', deleteContact?: any | null };
+
 
 export const CreateNewContactDocument = `
     mutation createNewContact($contact: NewContact!) {
@@ -46,5 +53,19 @@ export const useCreateNewContactMutation = <
     useMutation<CreateNewContactMutation, TError, CreateNewContactMutationVariables, TContext>(
       ['createNewContact'],
       (variables?: CreateNewContactMutationVariables) => fetcher<CreateNewContactMutation, CreateNewContactMutationVariables>(CreateNewContactDocument, variables)(),
+      options
+    );
+export const DeleteContactDocument = `
+    mutation deleteContact($contactId: Int!) {
+  deleteContact(contactId: $contactId)
+}
+    `;
+export const useDeleteContactMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<DeleteContactMutation, TError, DeleteContactMutationVariables, TContext>) =>
+    useMutation<DeleteContactMutation, TError, DeleteContactMutationVariables, TContext>(
+      ['deleteContact'],
+      (variables?: DeleteContactMutationVariables) => fetcher<DeleteContactMutation, DeleteContactMutationVariables>(DeleteContactDocument, variables)(),
       options
     );

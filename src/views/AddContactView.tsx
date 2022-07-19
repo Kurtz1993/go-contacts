@@ -1,4 +1,4 @@
-import { useCreateNewContactMutation } from '@app/graphql/mutations/createContact.generated';
+import { useCreateNewContactMutation } from '@app/graphql/mutations/contacts.generated';
 import clsx from 'clsx';
 import { useFormik } from 'formik';
 import { object, string } from 'yup';

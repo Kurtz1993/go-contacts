@@ -15,6 +15,11 @@ func (r *mutationResolver) CreateContact(ctx context.Context, input model.NewCon
 	return r.contacts.Create(input)
 }
 
+// DeleteContact is the resolver for the deleteContact field.
+func (r *mutationResolver) DeleteContact(ctx context.Context, contactID int) (*string, error) {
+	return nil, r.contacts.Delete(contactID)
+}
+
 // Contacts is the resolver for the contacts field.
 func (r *queryResolver) Contacts(ctx context.Context) ([]*model.Contact, error) {
 	return r.contacts.List()

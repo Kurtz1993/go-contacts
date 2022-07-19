@@ -50,6 +50,10 @@ func (u *Contacts) Create(input model.NewContact) (*model.Contact, error) {
 	return toContactVM(result), nil
 }
 
+func (u *Contacts) Delete(contactID int) error {
+	return u.dao.DeleteContact(contactID)
+}
+
 func toContactVM(entity *datastore.ContactEntity) *model.Contact {
 	var url string
 	if entity.Email != nil {

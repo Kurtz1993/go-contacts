@@ -1,6 +1,4 @@
-# GraphQL schema example
-#
-# https://gqlgen.com/getting-started/
+scalar Void
 
 type Contact {
   id: Int!
@@ -24,4 +22,5 @@ input NewContact {
 
 type Mutation {
   createContact(input: NewContact!): Contact!
+  deleteContact(contactId: Int!): Void
 }

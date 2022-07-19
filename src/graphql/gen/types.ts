@@ -10,6 +10,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  Void: any;
 };
 
 export type Contact = {
@@ -25,11 +26,17 @@ export type Contact = {
 export type Mutation = {
   __typename?: 'Mutation';
   createContact: Contact;
+  deleteContact?: Maybe<Scalars['Void']>;
 };
 
 
 export type MutationCreateContactArgs = {
   input: NewContact;
+};
+
+
+export type MutationDeleteContactArgs = {
+  contactId: Scalars['Int'];
 };
 
 export type NewContact = {
@@ -50,6 +57,13 @@ export type CreateNewContactMutationVariables = Exact<{
 
 
 export type CreateNewContactMutation = { __typename?: 'Mutation', createContact: { __typename?: 'Contact', firstName: string, lastName: string, phoneNumber?: string | null, email?: string | null } };
+
+export type DeleteContactMutationVariables = Exact<{
+  contactId: Scalars['Int'];
+}>;
+
+
+export type DeleteContactMutation = { __typename?: 'Mutation', deleteContact?: any | null };
 
 export type ContactsListQueryVariables = Exact<{ [key: string]: never; }>;
 

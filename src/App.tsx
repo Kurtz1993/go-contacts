@@ -1,10 +1,9 @@
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { queryClient } from './config/queryClient';
 import AddContactView from './views/AddContactView';
 import ContactsView from './views/ContactsView';
-
-const queryClient = new QueryClient();
 
 function App() {
   return (

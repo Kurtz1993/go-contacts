@@ -8,13 +8,9 @@
       "name": "Launch Package",
       "type": "go",
       "request": "launch",
-      "mode": "debug",
-      "program": "${workspaceFolder}/cmd/contacts/main.go",
-      "env": {
-        "APP_DB_USERNAME": "luis",
-        "APP_DB_PASSWORD": "",
-        "APP_DB_NAME": "luis"
-      }
+      "mode": "auto",
+      "program": "${workspaceFolder}/server/main.go",
+      "envFile": "${workspaceFolder}/.env"
     }
   ]
 }

@@ -1,36 +1,40 @@
 import { useCreateNewContactMutation } from '@app/graphql/mutations/contacts.generated';
+import { yupResolver } from '@hookform/resolvers/yup';
 import clsx from 'clsx';
-import { useFormik } from 'formik';
+import { useForm } from 'react-hook-form';
 import { object, string } from 'yup';
 
 const validationSchema = object({
   firstName: string().required(),
   lastName: string().required(),
-  phoneNumber: string().matches(/\d{10}/),
+  phoneNumber: string()
+    .required('This field is required')
+    .matches(/\d{10}/),
   email: string().email(),
 });
 
+type ContactForm = typeof validationSchema.__outputType;
+
 export default function AddContactView() {
   const { mutate: createContact } = useCreateNewContactMutation();
-  const formik = useFormik({
-    initialValues: {
-      firstName: '',
-      lastName: '',
-      phoneNumber: '',
-      email: '',
-    },
-    validationSchema,
-    onSubmit(values) {
-      createContact({ contact: values });
-    },
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, touchedFields },
+  } = useForm<ContactForm>({
+    resolver: yupResolver(validationSchema),
   });
 
+  function submitContact(values: ContactForm) {
+    createContact({ contact: values });
+  }
+
   return (
-    <form className="flex flex-col items-center" onSubmit={formik.handleSubmit} noValidate>
+    <form className="flex flex-col items-center" onSubmit={handleSubmit(submitContact)} noValidate>
       <div className="flex justify-between">
         <div
           className={clsx('mb-5 flex flex-col mr-2', {
-            'text-red-600': formik.touched.firstName && formik.errors.firstName,
+            'text-red-600': touchedFields.firstName && errors.firstName,
           })}
         >
           <label className="mb-2" htmlFor="firstName">
@@ -41,15 +45,14 @@ export default function AddContactView() {
             name="firstName"
             id="firstName"
             className={clsx('rounded', {
-              'border-red-600': formik.touched.firstName && formik.errors.firstName,
+              'border-red-600': touchedFields.firstName && errors.firstName,
             })}
-            value={formik.values.firstName}
-            onChange={formik.handleChange}
+            {...register('firstName')}
           />
         </div>
         <div
           className={clsx('mb-5 flex flex-col ml-2', {
-            'text-red-600': formik.touched.lastName && formik.errors.lastName,
+            'text-red-600': touchedFields.lastName && errors.lastName,
           })}
         >
           <label className="mb-2" htmlFor="lastName">
@@ -60,10 +63,9 @@ export default function AddContactView() {
             name="lastName"
             id="lastName"
             className={clsx('rounded', {
-              'border-red-600': formik.touched.lastName && formik.errors.lastName,
+              'border-red-600': touchedFields.lastName && errors.lastName,
             })}
-            value={formik.values.lastName}
-            onChange={formik.handleChange}
+            {...register('lastName')}
           />
         </div>
       </div>
@@ -71,7 +73,7 @@ export default function AddContactView() {
       <div className="flex justify-between">
         <div
           className={clsx('mb-5 flex flex-col mr-2', {
-            'text-red-600': formik.touched.phoneNumber && formik.errors.phoneNumber,
+            'text-red-600': touchedFields.phoneNumber && errors.phoneNumber,
           })}
         >
           <label className="mb-2" htmlFor="phoneNumber">
@@ -82,15 +84,14 @@ export default function AddContactView() {
             name="phoneNumber"
             id="phoneNumber"
             className={clsx('rounded', {
-              'border-red-600': formik.touched.phoneNumber && formik.errors.phoneNumber,
+              'border-red-600': touchedFields.phoneNumber && errors.phoneNumber,
             })}
-            value={formik.values.phoneNumber}
-            onChange={formik.handleChange}
+            {...register('phoneNumber')}
           />
         </div>
         <div
           className={clsx('mb-5 flex flex-col ml-2', {
-            'text-red-600': formik.touched.email && formik.errors.email,
+            'text-red-600': touchedFields.email && errors.email,
           })}
         >
           <label className="mb-2" htmlFor="email">
@@ -101,10 +102,9 @@ export default function AddContactView() {
             name="email"
             id="email"
             className={clsx('rounded', {
-              'border-red-600': formik.touched.email && formik.errors.email,
+              'border-red-600': touchedFields.email && errors.email,
             })}
-            value={formik.values.email}
-            onChange={formik.handleChange}
+            {...register('email')}
           />
         </div>
       </div>

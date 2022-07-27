@@ -17,4 +17,9 @@ export default defineConfig({
       exclude: ['node_modules/', 'src/setupTests.ts'],
     },
   },
+  server: {
+    hmr: {
+      protocol: 'ws',
+    },
+  },
 });

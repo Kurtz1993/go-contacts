@@ -1,9 +1,10 @@
-import ContactCard from '@app/components/ContactCard';
-import { useContactsListQuery } from '@app/graphql/queries/contacts.generated';
 import { Link } from 'react-router-dom';
 
+import ContactCard from '@app/components/ContactCard';
+import { useContactsListQuery } from '@app/graphql/queries/contacts.generated';
+
 export default function ContactsView() {
-  const { isFetching, data: data } = useContactsListQuery();
+  const { data } = useContactsListQuery();
 
   return (
     <div>

@@ -1,8 +1,10 @@
+import { MailIcon, PencilIcon, PhoneIcon, TrashIcon } from '@heroicons/react/outline';
+
+import DetailItem from './DetailItem';
+
 import { queryClient } from '@app/config/queryClient';
 import { Contact } from '@app/graphql/gen/types';
 import { useDeleteContactMutation } from '@app/graphql/mutations/contacts.generated';
-import { MailIcon, PencilIcon, PhoneIcon, TrashIcon } from '@heroicons/react/outline';
-import DetailItem from './DetailItem';
 
 type ContactCardProps = {
   contact: Contact;

@@ -1,8 +1,9 @@
-import { useCreateNewContactMutation } from '@app/graphql/mutations/contacts.generated';
 import { yupResolver } from '@hookform/resolvers/yup';
 import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
 import { object, string } from 'yup';
+
+import { useCreateNewContactMutation } from '@app/graphql/mutations/contacts.generated';
 
 const validationSchema = object({
   firstName: string().required('This field is required.'),
@@ -20,7 +21,7 @@ export default function AddContactView() {
   const {
     register,
     handleSubmit,
-    formState: { errors, touchedFields },
+    formState: { errors },
   } = useForm<ContactForm>({
     mode: 'onTouched',
     resolver: yupResolver(validationSchema),

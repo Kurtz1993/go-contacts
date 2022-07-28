@@ -13,7 +13,6 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "clsx": "^1.2.0",
-    "formik": "^2.2.9",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.33.1",
@@ -33,12 +32,6 @@
     "test:coverage": "vitest run --coverage",
     "codegen": "graphql-codegen --config ui-graphql-codegen.yml"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -57,10 +50,17 @@
     "@graphql-codegen/typescript": "2.5.1",
     "@graphql-codegen/typescript-operations": "2.4.2",
     "@graphql-codegen/typescript-react-query": "^3.6.0",
+    "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@vitejs/plugin-react": "^2.0.0",
     "autoprefixer": "^9.8.8",
     "c8": "^7.11.3",
     "cssnano": "^5.1.12",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-import-resolver-typescript": "^3.3.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-react": "^7.30.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-testing-library": "^5.5.1",
     "install": "^0.13.0",
     "jsdom": "^20.0.0",
     "postcss": "^8.4.14",

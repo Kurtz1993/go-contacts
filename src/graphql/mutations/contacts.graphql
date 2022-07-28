@@ -1,5 +1,14 @@
-mutation createNewContact($contact: NewContact!) {
+mutation createNewContact($contact: ContactInput!) {
   createContact(input: $contact) {
+    firstName
+    lastName
+    phoneNumber
+    email
+  }
+}
+
+mutation updateContact($contact: ContactInput!) {
+  updateContact(input: $contact) {
     firstName
     lastName
     phoneNumber

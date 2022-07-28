@@ -23,15 +23,24 @@ export type Contact = {
   phoneNumber?: Maybe<Scalars['String']>;
 };
 
+export type ContactInput = {
+  email?: InputMaybe<Scalars['String']>;
+  firstName: Scalars['String'];
+  id?: InputMaybe<Scalars['Int']>;
+  lastName: Scalars['String'];
+  phoneNumber?: InputMaybe<Scalars['String']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createContact: Contact;
   deleteContact?: Maybe<Scalars['Void']>;
+  updateContact: Contact;
 };
 
 
 export type MutationCreateContactArgs = {
-  input: NewContact;
+  input: ContactInput;
 };
 
 
@@ -39,11 +48,9 @@ export type MutationDeleteContactArgs = {
   contactId: Scalars['Int'];
 };
 
-export type NewContact = {
-  email?: InputMaybe<Scalars['String']>;
-  firstName: Scalars['String'];
-  lastName: Scalars['String'];
-  phoneNumber?: InputMaybe<Scalars['String']>;
+
+export type MutationUpdateContactArgs = {
+  input: ContactInput;
 };
 
 export type Query = {
@@ -52,11 +59,18 @@ export type Query = {
 };
 
 export type CreateNewContactMutationVariables = Exact<{
-  contact: NewContact;
+  contact: ContactInput;
 }>;
 
 
 export type CreateNewContactMutation = { __typename?: 'Mutation', createContact: { __typename?: 'Contact', firstName: string, lastName: string, phoneNumber?: string | null, email?: string | null } };
+
+export type UpdateContactMutationVariables = Exact<{
+  contact: ContactInput;
+}>;
+
+
+export type UpdateContactMutation = { __typename?: 'Mutation', updateContact: { __typename?: 'Contact', firstName: string, lastName: string, phoneNumber?: string | null, email?: string | null } };
 
 export type DeleteContactMutationVariables = Exact<{
   contactId: Scalars['Int'];

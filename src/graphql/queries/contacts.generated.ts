@@ -1,6 +1,6 @@
-import * as Types from '../gen/types';
+import * as Types from '../gen/types.js';
 
-import { useQuery, UseQueryOptions } from 'react-query';
+import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 function fetcher<TData, TVariables>(query: string, variables?: TVariables) {
   return async (): Promise<TData> => {

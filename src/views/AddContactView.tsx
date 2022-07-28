@@ -5,12 +5,12 @@ import { useForm } from 'react-hook-form';
 import { object, string } from 'yup';
 
 const validationSchema = object({
-  firstName: string().required(),
-  lastName: string().required(),
+  firstName: string().required('This field is required.'),
+  lastName: string().required('This field is required.'),
   phoneNumber: string()
-    .required('This field is required')
-    .matches(/\d{10}/),
-  email: string().email(),
+    .required('This field is required.')
+    .matches(/\d{10}/, { message: 'Phone number must be 10 digits.' }),
+  email: string().email('Must be a valid e-mail.'),
 });
 
 type ContactForm = typeof validationSchema.__outputType;
@@ -22,6 +22,7 @@ export default function AddContactView() {
     handleSubmit,
     formState: { errors, touchedFields },
   } = useForm<ContactForm>({
+    mode: 'onTouched',
     resolver: yupResolver(validationSchema),
   });
 
@@ -34,7 +35,7 @@ export default function AddContactView() {
       <div className="flex justify-between">
         <div
           className={clsx('mb-5 flex flex-col mr-2', {
-            'text-red-600': touchedFields.firstName && errors.firstName,
+            'text-red-600': errors.firstName,
           })}
         >
           <label className="mb-2" htmlFor="firstName">
@@ -45,14 +46,15 @@ export default function AddContactView() {
             name="firstName"
             id="firstName"
             className={clsx('rounded', {
-              'border-red-600': touchedFields.firstName && errors.firstName,
+              'border-red-600': errors.firstName,
             })}
             {...register('firstName')}
           />
+          {errors.firstName && <p>{errors.firstName.message}</p>}
         </div>
         <div
           className={clsx('mb-5 flex flex-col ml-2', {
-            'text-red-600': touchedFields.lastName && errors.lastName,
+            'text-red-600': errors.lastName,
           })}
         >
           <label className="mb-2" htmlFor="lastName">
@@ -63,17 +65,18 @@ export default function AddContactView() {
             name="lastName"
             id="lastName"
             className={clsx('rounded', {
-              'border-red-600': touchedFields.lastName && errors.lastName,
+              'border-red-600': errors.lastName,
             })}
             {...register('lastName')}
           />
+          {errors.lastName && <p>{errors.lastName.message}</p>}
         </div>
       </div>
 
       <div className="flex justify-between">
         <div
           className={clsx('mb-5 flex flex-col mr-2', {
-            'text-red-600': touchedFields.phoneNumber && errors.phoneNumber,
+            'text-red-600': errors.phoneNumber,
           })}
         >
           <label className="mb-2" htmlFor="phoneNumber">
@@ -84,14 +87,15 @@ export default function AddContactView() {
             name="phoneNumber"
             id="phoneNumber"
             className={clsx('rounded', {
-              'border-red-600': touchedFields.phoneNumber && errors.phoneNumber,
+              'border-red-600': errors.phoneNumber,
             })}
             {...register('phoneNumber')}
           />
+          {errors.phoneNumber && <p>{errors.phoneNumber.message}</p>}
         </div>
         <div
           className={clsx('mb-5 flex flex-col ml-2', {
-            'text-red-600': touchedFields.email && errors.email,
+            'text-red-600': errors.email,
           })}
         >
           <label className="mb-2" htmlFor="email">
@@ -102,10 +106,11 @@ export default function AddContactView() {
             name="email"
             id="email"
             className={clsx('rounded', {
-              'border-red-600': touchedFields.email && errors.email,
+              'border-red-600': errors.email,
             })}
             {...register('email')}
           />
+          {errors.email && <p>{errors.email.message}</p>}
         </div>
       </div>
 

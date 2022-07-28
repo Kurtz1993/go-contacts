@@ -5,13 +5,13 @@ generates:
   src/graphql/gen/types.ts:
     plugins:
       - 'typescript'
-      - 'typescript-operations'
+      - typescript-operations
   src:
     preset: near-operation-file
     presetConfig:
       baseTypesPath: 'graphql/gen/types.ts'
     plugins:
-      - 'typescript-operations'
+      - typescript-operations
       - typescript-react-query
     config:
       fetcher:

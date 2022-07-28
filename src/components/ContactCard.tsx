@@ -1,4 +1,5 @@
 import { MailIcon, PencilIcon, PhoneIcon, TrashIcon } from '@heroicons/react/outline';
+import { Link } from 'react-router-dom';
 
 import DetailItem from './DetailItem';
 
@@ -27,9 +28,11 @@ export default function ContactCard({ contact }: ContactCardProps) {
   return (
     <figure className="bg-gray-100 rounded-xl p-5 mx-4 my-5 shadow-md hover:shadow-xl hover:scale-105 transition duration-300 flex flex-col">
       <div className="text-right">
-        <button type="button">
-          <PencilIcon width="20" className="mr-4" />
-        </button>
+        <div>
+          <Link to={`/edit/${contact.id}`}>
+            <PencilIcon width="20" className="mr-4" />
+          </Link>
+        </div>
         <button type="button" onClick={deleteContact} className="text-red-700">
           <TrashIcon width="20" />
         </button>

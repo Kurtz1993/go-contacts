@@ -1,11 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import clsx from 'clsx';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { object, string } from 'yup';
 
 import { queryClient } from '@app/config/queryClient';
-import { useCreateNewContactMutation } from '@app/graphql/mutations/contacts.generated';
+import { useUpdateContactMutation } from '@app/graphql/mutations/contacts.generated';
+import { useContactsListQuery } from '@app/graphql/queries/contacts.generated';
 
 const validationSchema = object({
   firstName: string().required('This field is required.'),
@@ -18,20 +20,34 @@ const validationSchema = object({
 
 type ContactForm = typeof validationSchema.__outputType;
 
-export default function AddContactView() {
+export default function UpdateContactView() {
   const navigate = useNavigate();
-  const { mutateAsync: createContact } = useCreateNewContactMutation();
+  const { data } = useContactsListQuery();
+  const { id } = useParams<{ id: string }>();
+  const { mutateAsync: updateContact } = useUpdateContactMutation();
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<ContactForm>({
     mode: 'onTouched',
     resolver: yupResolver(validationSchema),
   });
 
+  useEffect(() => {
+    const selectedContact = data?.contacts.find(item => item.id === +id);
+
+    if (selectedContact) {
+      setValue('email', selectedContact.email);
+      setValue('firstName', selectedContact.firstName);
+      setValue('lastName', selectedContact.lastName);
+      setValue('phoneNumber', selectedContact.phoneNumber);
+    }
+  }, [data, id, setValue]);
+
   function submitContact(values: ContactForm) {
-    createContact({ contact: values }).then(() => {
+    updateContact({ contact: { ...values, id: +id } }).then(() => {
       queryClient.invalidateQueries(['contactsList']);
       navigate('/');
     });
@@ -123,7 +139,7 @@ export default function AddContactView() {
 
       <div>
         <button type="submit" className="py-2 px-4 bg-teal-700 text-white rounded hover:bg-teal-800 transition-colors">
-          Add Contact
+          Update Contact
         </button>
       </div>
     </form>

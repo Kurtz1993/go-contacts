@@ -10,8 +10,13 @@ import (
 	"github.com/Kurtz1993/go-contacts/server/pkg/gql/model"
 )
 
+// UpdateContact is the resolver for the updateContact field.
+func (r *mutationResolver) UpdateContact(ctx context.Context, input model.ContactInput) (*model.Contact, error) {
+	return r.contacts.Update(input)
+}
+
 // CreateContact is the resolver for the createContact field.
-func (r *mutationResolver) CreateContact(ctx context.Context, input model.NewContact) (*model.Contact, error) {
+func (r *mutationResolver) CreateContact(ctx context.Context, input model.ContactInput) (*model.Contact, error) {
 	return r.contacts.Create(input)
 }
 

@@ -11,7 +11,8 @@ type Contact struct {
 	Email       *string `json:"email"`
 }
 
-type NewContact struct {
+type ContactInput struct {
+	ID          *int    `json:"id"`
 	FirstName   string  `json:"firstName"`
 	LastName    string  `json:"lastName"`
 	PhoneNumber *string `json:"phoneNumber"`

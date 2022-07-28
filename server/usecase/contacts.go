@@ -34,7 +34,7 @@ func (u *Contacts) List() ([]*model.Contact, error) {
 	return result, nil
 }
 
-func (u *Contacts) Create(input model.NewContact) (*model.Contact, error) {
+func (u *Contacts) Create(input model.ContactInput) (*model.Contact, error) {
 	entity := &datastore.ContactEntity{
 		FirstName:   input.FirstName,
 		LastName:    input.LastName,
@@ -43,6 +43,26 @@ func (u *Contacts) Create(input model.NewContact) (*model.Contact, error) {
 	}
 
 	result, err := u.dao.CreateContact(entity)
+	if err != nil {
+		return nil, fmt.Errorf("unexpected error: %v", err)
+	}
+
+	return toContactVM(result), nil
+}
+
+func (u *Contacts) Update(input model.ContactInput) (*model.Contact, error) {
+	if input.ID == nil {
+		return nil, fmt.Errorf("ID must be supplied to update a contact")
+	}
+	entity := &datastore.ContactEntity{
+		ID:          *input.ID,
+		FirstName:   input.FirstName,
+		LastName:    input.LastName,
+		PhoneNumber: input.PhoneNumber,
+		Email:       input.Email,
+	}
+
+	result, err := u.dao.UpdateContact(entity)
 	if err != nil {
 		return nil, fmt.Errorf("unexpected error: %v", err)
 	}

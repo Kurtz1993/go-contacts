@@ -1,4 +1,4 @@
-import { MailIcon, PencilIcon, PhoneIcon, TrashIcon } from '@heroicons/react/outline';
+import { EnvelopeIcon, PencilIcon, PhoneIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 
 import DetailItem from './DetailItem';
@@ -47,7 +47,7 @@ export default function ContactCard({ contact }: ContactCardProps) {
       <div className="pt-6 text-center space-y-4">
         <figcaption className="font-medium">
           <div className="text-cyan-600">{`${contact.firstName} ${contact.lastName}`}</div>
-          <DetailItem icon={<MailIcon />} text={contact.email} />
+          <DetailItem icon={<EnvelopeIcon />} text={contact.email} />
           <DetailItem icon={<PhoneIcon />} text={contact.phoneNumber} />
         </figcaption>
       </div>

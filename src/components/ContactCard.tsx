@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import DetailItem from './DetailItem';
 
 import { queryClient } from '@app/config/queryClient';
-import { Contact } from '@app/graphql/gen/types';
-import { useDeleteContactMutation } from '@app/graphql/mutations/contacts.generated';
+import { Contact } from '@app/models';
+import { useDeleteContactMutation } from '@app/queries/contacts.queries';
 
 type ContactCardProps = {
   contact: Contact;

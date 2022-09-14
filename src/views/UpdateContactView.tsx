@@ -5,9 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router';
 import { object, string } from 'yup';
 
-import { queryClient } from '@app/config/queryClient';
-import { useUpdateContactMutation } from '@app/graphql/mutations/contacts.generated';
-import { useContactsListQuery } from '@app/graphql/queries/contacts.generated';
+import { useContactsListQuery, useUpdateContactMutation } from '@app/queries/contacts.queries';
 
 const validationSchema = object({
   firstName: string().required('This field is required.'),
@@ -36,7 +34,7 @@ export default function UpdateContactView() {
   });
 
   useEffect(() => {
-    const selectedContact = data?.contacts.find(item => item.id === +id);
+    const selectedContact = data?.find(item => item.id === +id);
 
     if (selectedContact) {
       setValue('email', selectedContact.email);
@@ -48,7 +46,6 @@ export default function UpdateContactView() {
 
   function submitContact(values: ContactForm) {
     updateContact({ contact: { ...values, id: +id } }).then(() => {
-      queryClient.invalidateQueries(['contactsList']);
       navigate('/');
     });
   }

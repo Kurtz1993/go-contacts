@@ -4,8 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { object, string } from 'yup';
 
-import { queryClient } from '@app/config/queryClient';
-import { useCreateNewContactMutation } from '@app/graphql/mutations/contacts.generated';
+import { useCreateNewContactMutation } from '@app/queries/contacts.queries';
 
 const validationSchema = object({
   firstName: string().required('This field is required.'),
@@ -32,7 +31,6 @@ export default function AddContactView() {
 
   function submitContact(values: ContactForm) {
     createContact({ contact: values }).then(() => {
-      queryClient.invalidateQueries(['contactsList']);
       navigate('/');
     });
   }

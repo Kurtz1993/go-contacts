@@ -1,4 +1,3 @@
-import { IonApp } from '@ionic/react';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
@@ -8,7 +7,7 @@ import UpdateContactView from './views/UpdateContactView';
 
 function App() {
   return (
-    <IonApp>
+    <main>
       <Router>
         <Routes>
           <Route path="/" element={<ContactsView />} />
@@ -18,7 +17,7 @@ function App() {
       </Router>
 
       <ReactQueryDevtools />
-    </IonApp>
+    </main>
   );
 }
 

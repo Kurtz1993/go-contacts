@@ -1,19 +1,14 @@
 package main
 
 import (
-	"net/http"
+	"log"
 
-	"github.com/99designs/gqlgen/graphql/handler"
-	"github.com/99designs/gqlgen/graphql/playground"
+	"github.com/Kurtz1993/go-contacts/server/pkg/contacts"
 	"github.com/Kurtz1993/go-contacts/server/pkg/datastore"
-	"github.com/Kurtz1993/go-contacts/server/pkg/gql"
-	"github.com/Kurtz1993/go-contacts/server/pkg/gql/generated"
-	"github.com/Kurtz1993/go-contacts/server/usecase"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
-	"github.com/valyala/fasthttp/fasthttpadaptor"
 )
 
 func main() {
@@ -21,7 +16,13 @@ func main() {
 		AppName: "Go Contacts v1.0.0",
 	})
 
-	datastore.EnsureTableExists()
+	db, err := datastore.ConnectDatabase()
+
+	if err != nil {
+		log.Fatalf("Could not establish connection to the database: %v", err)
+	}
+
+	datastore.Migrate(db)
 
 	// Automatically recover from panics
 	app.Use(recover.New())
@@ -29,26 +30,13 @@ func main() {
 	app.Use(logger.New())
 	api := app.Group("/api")
 
-	contactsDao := &datastore.ContactsDAO{}
-	contactsUseCase := usecase.NewContacts(contactsDao)
+	contactsUseCase := contacts.NewContactsUseCase(db)
+	contactsCtrl := contacts.NewContactsCtrl(contactsUseCase)
 
-	api.All("/graphql", func(ctx *fiber.Ctx) error {
-		h := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: gql.NewResolver(contactsUseCase)}))
-		fasthttpadaptor.NewFastHTTPHandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
-			h.ServeHTTP(writer, request)
-		})(ctx.Context())
-
-		return nil
-	})
-
-	api.All("/playground", func(ctx *fiber.Ctx) error {
-		h := playground.Handler("GraphQL", "/api/graphql")
-		fasthttpadaptor.NewFastHTTPHandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
-			h.ServeHTTP(writer, request)
-		})(ctx.Context())
-
-		return nil
-	})
+	api.Post("/contacts", contactsCtrl.CreateContact)
+	api.Get("/contacts", contactsCtrl.ListContacts)
+	api.Put("/contacts", contactsCtrl.UpdateContact)
+	api.Delete("/contacts/:contactId", contactsCtrl.DeleteContactById)
 
 	app.Listen(":3000")
 }

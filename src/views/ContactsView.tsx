@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import ContactCard from '@app/components/ContactCard';
-import { useContactsListQuery } from '@app/graphql/queries/contacts.generated';
+import { useContactsListQuery } from '@app/queries/contacts.queries';
 
 export default function ContactsView() {
   const { data } = useContactsListQuery();
@@ -15,7 +15,7 @@ export default function ContactsView() {
         </Link>
       </div>
       <div className="flex flex-wrap justify-center">
-        {data?.contacts?.map(item => (
+        {data?.map(item => (
           <ContactCard contact={item} key={item.id} />
         ))}
       </div>

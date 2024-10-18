@@ -1,5 +1,6 @@
 # Builds
 dist/
+__debug*
 
 # Binaries for programs and plugins
 *.exe

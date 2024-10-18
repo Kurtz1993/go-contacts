@@ -18,9 +18,9 @@
     "jsx": "react-jsx",
     "types": ["vitest/globals"],
     "paths": {
-      "@app/*": ["./src/*"]
+      "@app/*": ["./web/src/*"]
     }
   },
-  "include": ["src"],
+  "include": ["web/src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

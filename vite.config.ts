@@ -10,7 +10,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: './web/src/setupTests.ts',
+    setupFiles: './web/setupTests.ts',
   },
   server: {
     hmr: {

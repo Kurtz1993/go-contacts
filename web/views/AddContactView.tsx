@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, TextField } from '@mui/material';
 import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { object, string } from 'yup';
 
 import { useCreateNewContactMutation } from '@app/queries/contacts.queries';

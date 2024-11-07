@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import clsx from 'clsx';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router-dom';
 import { object, string } from 'yup';
 
 import { useContactsListQuery, useUpdateContactMutation } from '@app/queries/contacts.queries';
